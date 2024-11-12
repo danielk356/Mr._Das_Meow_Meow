@@ -18,6 +18,9 @@ public class Player {
 
     public void decreasePlayerEnergy(int x) {
         energy -= x;
+        if (energy > 100) {
+            energy = 100;
+        }
     }
 
 }

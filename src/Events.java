@@ -2,20 +2,28 @@ public class Events {
     private Cat pleio;
     private Cat koopa;
     private Player player;
+    private boolean success;
 
-    public Events(Cat pleio, Cat koopa, Player player) {
+    public Events(Cat pleio, Cat koopa, Player player, boolean success) {
         this.pleio = pleio;
         this.koopa = koopa;
         this.player = player;
+        this.success = success;
+    }
+
+    public boolean getSuccess() {
+        return success;
     }
 
     public void feedCat(Cat cat) {
         player.decreasePlayerEnergy(10);
         cat.increaseMood(20);
+        cat.increaseHunger(20);
+        cat.increaseThirst(20);
     }
 
     public void playerSleep() {
-        player.increasePlayerEnergy(30);
+        player.increasePlayerEnergy(50);
     }
 
     public void putCatsToSleep() {
@@ -24,8 +32,10 @@ public class Events {
             player.decreasePlayerEnergy(20);
             pleio.changeIsSleeping();
             koopa.changeIsSleeping();
+            success = true;
         } else {
             player.decreasePlayerEnergy(30);
+            success = false;
         }
     }
 
