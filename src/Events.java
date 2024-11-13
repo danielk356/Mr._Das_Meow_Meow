@@ -30,8 +30,8 @@ public class Events {
         int chance = (int) (Math.random() * 2) + 1;
         if (chance == 1) {
             player.decreasePlayerEnergy(20);
-            pleio.changeIsSleeping();
-            koopa.changeIsSleeping();
+            pleio.changeIsSleeping(true);
+            koopa.changeIsSleeping(true);
             success = true;
         } else {
             player.decreasePlayerEnergy(30);

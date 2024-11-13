@@ -126,7 +126,7 @@ public class Cat {
         alive = !(alive);
     }
 
-    public void changeIsSleeping() {
+    public void changeIsSleeping(boolean b) {
         isSleeping = !(isSleeping);
     }
 
