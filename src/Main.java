@@ -20,6 +20,7 @@ public class Main {
 
         Scanner s = new Scanner(System.in);
         int day = 0;
+        boolean thereIsEvent = false;
         while ((pleio.getAliveStatus() && koopa.getAliveStatus()) && day <= 7) {
             System.out.println("Day " + day);
             if (day == 0) {
@@ -29,6 +30,10 @@ public class Main {
                 System.out.println("Tutorial");
                 System.out.println(tutorial);
             } else {
+                System.out.println("Awake now? Good cuz the cats are also awake. Go do your job u failure haiyaaa");
+                System.out.println();
+                pleio.changeIsSleeping(false);
+                koopa.changeIsSleeping(false);
                 for (int time = 1; time <= 3; time++) {
                     if (time == 1) {
                         System.out.println("Morning");
@@ -38,55 +43,115 @@ public class Main {
                         System.out.println("Evening");
                     }
                     System.out.println();
+
+                    if (!thereIsEvent) {
+                        pleio.decreaseHunger(20);
+                        pleio.decreaseThirst(20);
+                        pleio.decreaseMood(30);
+                        koopa.decreaseHunger(20);
+                        koopa.decreaseThirst(20);
+                        koopa.decreaseMood(30);
+                        if (pleio.getHunger() < 50 || pleio.getThirst() < 50) {
+                            pleio.decreaseMood(10);
+                        } else if (koopa.getHunger() < 50 || koopa.getThirst() < 50) {
+                            koopa.decreaseMood(10);
+                        }
+                    }
+
+                    if (pleio.getHunger() == 0 || pleio.getThirst() == 0) {
+                        pleio.decreaseHealth(20);
+                    }
+                    if (koopa.getHunger() == 0 || koopa.getThirst() == 0) {
+                        koopa.decreaseHealth(20);
+                    }
+
                     int choice = 0;
-                    while (choice !=7) {
+
+                    if (pleio.getHealth() == 0 || koopa.getHealth() == 0) {
+                        time = 3;
+                        choice = 6;
+                    }
+                    while (choice != 6 && !thereIsEvent) {
                         System.out.println("Your energy: " + player.getPlayerEnergy());
-                        System.out.println("1: Feed cat; 2: Play with cats; 3: Put cat to sleep; 4: You sleep; 5: Give the cats a bath; 6: See cats' stats; 7: Continue");
+                        System.out.println("1: Feed cat; 2: Play with cats; 3: Put cat to sleep; 4: You sleep; 5: See cats' stats; 6: Continue");
                         System.out.print("Your choice? ");
                         choice = s.nextInt();
+
                         if (choice == 1) {
-                            System.out.print("Pleio or Koopa? ");
-                            String feedChoice = s.next();
-                            if (feedChoice.equals("Pleio")) {
-                                if (pleio.getIsSleeping()) {
-                                    System.out.println("Pleio is sleeping :/");
-                                } else {
-                                    System.out.println("You fed Pleio. (You no like Koopa? :c)");
-                                    System.out.println("Pleio's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
-                                    events.feedCat(pleio);
+                            if (player.getPlayerEnergy() >= 10) {
+                                System.out.print("Pleio or Koopa? ");
+                                String feedChoice = s.next();
+                                if (feedChoice.equals("Pleio")) {
+                                    if (pleio.getIsSleeping()) {
+                                        System.out.println("Pleio is sleeping :/");
+                                    } else {
+                                        System.out.println("You fed Pleio. (You no like Koopa? :c)");
+                                        System.out.println("Pleio's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
+                                        events.feedCat(pleio);
+                                    }
+                                } else if (feedChoice.equals("Koopa")) {
+                                    if (koopa.getIsSleeping()) {
+                                        System.out.println("Koopa is sleeping :/");
+                                    } else {
+                                        System.out.println("You fed Koopa. (You no like Pleio? :c)");
+                                        System.out.println("Koopa's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
+                                        events.feedCat(koopa);
+                                    }
                                 }
-                            } else if (feedChoice.equals("Koopa")) {
-                                if (koopa.getIsSleeping()) {
-                                    System.out.println("Koopa is sleeping :/");
-                                } else {
-                                    System.out.println("You fed Koopa. (You no like Pleio? :c)");
-                                    System.out.println("Koopa's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
-                                    events.feedCat(koopa);
-                                }
+                            } else {
+                                System.out.println("You don't have enough energy haiyaa");
+                                System.out.println("You so weak. Your ancestors look down on you haiyyaaaaaa");
                             }
-                        } else if (choice == 2 && !(pleio.getIsSleeping()) && !(koopa.getIsSleeping())) {
-                            System.out.println("You started playing with the cats. ");
+
+                        } else if (choice == 2) {
+                            if (player.getPlayerEnergy() >= 30) {
+                                if (pleio.getIsSleeping() && koopa.getIsSleeping()) {
+                                    System.out.println("Shhhhh they are sleeping right now. Play with them later.");
+                                } else if (pleio.getIsSleeping()) {
+                                    System.out.println("Pleio is sleeping. You can play with koopa though :D");
+                                    System.out.println("You petted and played with Koopa. Koopa's mood increased by 30. Your energy decreased by 30.");
+                                    events.playWithCats();
+                                } else if (koopa.getIsSleeping()) {
+                                    System.out.println("Koopa is sleeping. You can play with Pleio though :D");
+                                    System.out.println("You petted and played with Pleio. Pleio's mood increased by 30. Your energy decreased by 30.");
+                                    events.playWithCats();
+                                } else if (!koopa.getIsSleeping() && !pleio.getIsSleeping()) {
+                                    System.out.println("Yay both cats are awake :D");
+                                    System.out.println("You are happy and played with them like the cat lover you are. Both cats' mood increased by 30. Your energy decreased by 30.");
+                                    events.playWithCats();
+                                }
+                            } else {
+                                System.out.println("You don't have enough energy haiyaa");
+                                System.out.println("You so weak. Your ancestors look down on you haiyyaaaaaa");
+                            }
+
                         } else if (choice == 3) {
                             if (time == 3) {
-                                events.putCatsToSleep();
-                                if (events.getSuccess()) {
-                                    System.out.println("The cats are sleeping. Your energy decreased by 20.");
+                                if (player.getPlayerEnergy() >= 30) {
+                                    events.putCatsToSleep();
+                                    if (events.getSuccess()) {
+                                        System.out.println("The cats are sleeping. Your energy decreased by 20.");
+                                    } else {
+                                        System.out.println("The cats rebelled. Haiyaa you have skill issue. Your energy decreased by 30");
+                                    }
                                 } else {
-                                    System.out.println("The cats rebelled. Haiyaa you have skill issue. Your energy decreased by 30");
+                                    System.out.println("You don't have enough energy haiyaa");
+                                    System.out.println("You so weak. Your ancestors look down on you haiyyaaaaaa");
                                 }
                             } else {
                                 System.out.println("Go play with the cats. It ain't night time yet -_-");
                             }
+
                         } else if (choice == 4) {
                             if (time == 3) {
                                 System.out.println("You went to sleep. You will gain 50 energy.");
+                                events.playerSleep();
+                                choice = 6;
                             } else {
                                 System.out.println("You can only sleep at night time. Haiyaaaa");
                             }
 
-                        } else if (choice == 5 && !(pleio.getIsSleeping()) && !(koopa.getIsSleeping())) {
-
-                        } else if (choice == 6) {
+                        } else if (choice == 5) {
                             System.out.println("Pleio");
                             System.out.println("Health: " + pleio.getHealth());
                             System.out.println("Hunger: " + pleio.getHunger());
@@ -110,5 +175,7 @@ public class Main {
             System.out.println("---------------------------------------------------------------------------------------------------------------");
             day ++;
         }
+
+
     }
 }

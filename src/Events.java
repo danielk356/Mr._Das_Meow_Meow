@@ -39,5 +39,17 @@ public class Events {
         }
     }
 
+    public void playWithCats() {
+        player.decreasePlayerEnergy(30);
+        if (!pleio.getIsSleeping()) {
+            pleio.increaseMood(30);
+        }
+        if (!koopa.getIsSleeping()){
+            koopa.increaseMood(30);
+        }
+
+
+    }
+
 
 }
