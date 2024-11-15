@@ -29,6 +29,8 @@ public class Main {
                 System.out.println();
                 System.out.println("Tutorial");
                 System.out.println(tutorial);
+                System.out.print("Enter any character to continue: ");
+                String enter = s.next();
             } else {
                 System.out.println("Awake now? Good cuz the cats are also awake. Go do your job u failure haiyaaa");
                 System.out.println();
@@ -43,6 +45,15 @@ public class Main {
                         System.out.println("Evening");
                     }
                     System.out.println();
+                    System.out.println("Pleio: " + pleio.catNoises());
+                    System.out.println("Koopa: " + koopa.catNoises());
+
+                    int eventChance = (int) (Math.random() * 2) + 1;
+                    if (eventChance == 1 || (pleio.getMood() < 50 || koopa.getMood() < 50)) {
+                        thereIsEvent = true;
+                    } else {
+                        thereIsEvent = false;
+                    }
 
                     if (!thereIsEvent) {
                         pleio.decreaseHunger(20);
@@ -67,7 +78,17 @@ public class Main {
 
                     int choice = 0;
 
-                    if (pleio.getHealth() == 0 || koopa.getHealth() == 0) {
+                    if (pleio.getHealth() == 0 && koopa.getHealth() == 0) {
+                        pleio.changeAliveStatus();
+                        koopa.changeAliveStatus();
+                        time = 3;
+                        choice = 6;
+                    } else if (pleio.getHealth() == 0) {
+                        pleio.changeAliveStatus();
+                        time = 3;
+                        choice = 6;
+                    } else if (koopa.getHealth() == 0) {
+                        koopa.changeAliveStatus();
                         time = 3;
                         choice = 6;
                     }
@@ -81,7 +102,7 @@ public class Main {
                             if (player.getPlayerEnergy() >= 10) {
                                 System.out.print("Pleio or Koopa? ");
                                 String feedChoice = s.next();
-                                if (feedChoice.equals("Pleio")) {
+                                if (feedChoice.equals("Pleio") || feedChoice.equals("pleio")) {
                                     if (pleio.getIsSleeping()) {
                                         System.out.println("Pleio is sleeping :/");
                                     } else {
@@ -89,7 +110,7 @@ public class Main {
                                         System.out.println("Pleio's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
                                         events.feedCat(pleio);
                                     }
-                                } else if (feedChoice.equals("Koopa")) {
+                                } else if (feedChoice.equals("Koopa") || feedChoice.equals("koopa")) {
                                     if (koopa.getIsSleeping()) {
                                         System.out.println("Koopa is sleeping :/");
                                     } else {
@@ -170,12 +191,48 @@ public class Main {
                         }
                         System.out.println();
                     }
+
+                    while (thereIsEvent) {
+                        if (pleio.getMood() < 50 || koopa.getMood() < 50) {
+                            System.out.println("The cats are sad. They ran away from home.");
+                            System.out.print("Find them? y/n: ");
+                            String eventChoice = s.next();
+                            if (eventChoice.equals("y")) {
+                                System.out.println("You went outside (about time u stinky). You searched for the cats and found them in your ex's house.");
+                                System.out.println("Wait.. you have an ex??? Nvm");
+                                System.out.println("Anyway...you see the cats getting pampered by your ex.");
+                                System.out.println("Fueled by jealousy, you angrily barged in your ex's house.");
+                                System.out.println("");
+                            } else if (eventChoice.equals("n")) {
+
+                            }
+                        }
+                    }
                 }
             }
             System.out.println("---------------------------------------------------------------------------------------------------------------");
             day ++;
         }
 
+        if (!pleio.getAliveStatus() && !koopa.getAliveStatus()) {
+            System.out.println("BOTH CATS DIED?!! HOW ARE YOU THIS BAD???????");
+            System.out.println("MR. DAS IS VERY ANGRY!!! HE WILL HUNT YOU DOWN FOR ETERNITY!");
+            System.out.println("Good luck lil bro, but I hope you ain't got that good luck.");
+        } else if (!pleio.getAliveStatus()) {
+            System.out.println("Pleio is dead. You failure haiyyaaaa.");
+            System.out.println("How could you do this to Mr. Das? He gives you a fat zero.");
+            System.out.println("Now your parents use physical violence on you because you got the fat zero.");
+            System.out.println("Everyone in heaven looks down at you for letting a cat die. Haiyyaaaaa");
+        } else if (!koopa.getIsSleeping()) {
+            System.out.println("Koopa is dead. You failure haiyyaaaa.");
+            System.out.println("How could you do this to Mr. Das? He gives you a fat zero.");
+            System.out.println("Now your parents use physical violence on you because you got the fat zero.");
+            System.out.println("Everyone in heaven looks down at you for letting a cat die. Haiyyaaaaa");
+        } else if (pleio.getAliveStatus() && koopa.getAliveStatus()) {
+            System.out.println("Yay both cats are alive. Very good job :D");
+            System.out.println("Mr. Das gives you the 100 and your parents are very proud of you.");
+            System.out.println("Heaven nods at you with approval. You are a success (i bet you don't get that a lot from your parents)");
+        }
 
     }
 }
