@@ -202,10 +202,32 @@ public class Main {
                                 System.out.println("Wait.. you have an ex??? Nvm");
                                 System.out.println("Anyway...you see the cats getting pampered by your ex.");
                                 System.out.println("Fueled by jealousy, you angrily barged in your ex's house.");
-                                System.out.println("");
+                                System.out.println("Your ex looks at you.");
+                                System.out.println("1: Take the cats; 2: Make up with your ex");
+                                System.out.print("Your choice?");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("You told your ex that the cats belong to you.");
+                                    System.out.println("Your ex reluctantly let you take take the cats.");
+                                    System.out.println("You expected more? Ha imagine");
+                                    System.out.println("Your energy decreased by 10.");
+                                    player.decreasePlayerEnergy(10);
+                                    thereIsEvent = false;
+                                } else if (choice == 2) {
+                                    System.out.println("WOWWWW YOU PRIORITIZE YOUR EX OVER CATS? Whatever you do you.");
+                                    System.out.println("You told your ex you missed him/her. You want to go back with him/her.");
+                                    System.out.println("Some romantic stuff happened that I'm not going to specify.");
+                                    System.out.println("You took back the cats and kissed him/her goodbye. Happy ending :)");
+                                    System.out.println("Your energy decreased by 20.");
+                                    player.decreasePlayerEnergy(20);
+                                    thereIsEvent = false;
+                                }
                             } else if (eventChoice.equals("n")) {
-
+                                System.out.println("Wow what is wrong with you?");
+                                System.out.println("");
                             }
+                        } else {
+
                         }
                     }
                 }
