@@ -130,4 +130,15 @@ public class Cat {
         isSleeping = b;
     }
 
+    public String toString() {
+        String str = name + "\n";
+        str += "Health: " + health + "\n";
+        str += "Hunger: " + hunger + "\n";
+        str += "Thirst: " + thirst + "\n";
+        str += "Mood: " + mood + "\n";
+        str += "Alive: " + alive + "\n";
+        str += "Sleeping: " + isSleeping;
+        return str;
+    }
+
 }

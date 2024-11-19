@@ -173,21 +173,12 @@ public class Main {
                             }
 
                         } else if (choice == 5) {
-                            System.out.println("Pleio");
-                            System.out.println("Health: " + pleio.getHealth());
-                            System.out.println("Hunger: " + pleio.getHunger());
-                            System.out.println("Thirst: " + pleio.getThirst());
-                            System.out.println("Mood: " + pleio.getMood());
-                            System.out.println("Alive: " + pleio.getAliveStatus());
-                            System.out.println("Sleeping: " + pleio.getIsSleeping());
+                            System.out.println(pleio);
                             System.out.println("----------------------------------------------");
-                            System.out.println("Koopa");
-                            System.out.println("Health: " + koopa.getHealth());
-                            System.out.println("Hunger: " + koopa.getHunger());
-                            System.out.println("Thirst: " + koopa.getThirst());
-                            System.out.println("Mood: " + koopa.getMood());
-                            System.out.println("Alive: " + koopa.getAliveStatus());
-                            System.out.println("Sleeping: " + koopa.getIsSleeping());
+                            System.out.println(koopa);
+
+                        } else if (choice > 6 || choice < 1) {
+                            System.out.println("That's not a valid choice.");
                         }
                         System.out.println();
                     }
@@ -224,10 +215,53 @@ public class Main {
                                 }
                             } else if (eventChoice.equals("n")) {
                                 System.out.println("Wow what is wrong with you?");
-                                System.out.println("");
+                                System.out.println("So you stayed home, absolutely not caring about the cats. You're a monster.");
+                                System.out.println("The cats died because you didn't care for them.");
+                                pleio.decreaseHealth(100);
+                                koopa.decreaseHealth(100);
+                                thereIsEvent = false;
                             }
                         } else {
+                            int randomEvent = (int) (Math.random() * 5) + 1;
+                            if (randomEvent == 1) {
+                                System.out.println("NOOOO PLEIO IS LICKING GASOLINE!!!");
+                                System.out.println("1: You grab Pleio and rush him to the vet; 2: You leave him alone; 3: You take Pleio home and gave him home meds");
+                                System.out.print("Your choice? ");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("Very responsible!! You grabbed Pleio and took him to the vet.");
+                                    System.out.println("You told the vet that Pleio was licking gasoline.");
+                                    System.out.println("The vet gave Pleio some magical treatments. He said Pleio will be okay.");
+                                    System.out.println("1: Give the vet a tip; 2: Take Pleio home without giving a tip");
+                                    System.out.print("Your choice? ");
+                                    choice = s.nextInt();
+                                    if (choice == 1) {
+                                        System.out.println("You tipped the vet one cent. You cheapskate. Haiyaaa you are sooo poor.");
+                                        System.out.println("The vet frowned at you as you take Pleio home.");
+                                        System.out.println("Your energy decreased by 10. Pleio's mood increased by 20.");
+                                        player.decreasePlayerEnergy(10);
+                                        pleio.increaseMood(20);
+                                        thereIsEvent = false;
+                                    } else if (choice == 2) {
+                                        System.out.println("You went home with Pleio. No drama :)");
+                                        System.out.println("Your energy decreased by 10. Pleio's mood increased by 20.");
+                                        player.decreasePlayerEnergy(10);
+                                        pleio.increaseMood(20);
+                                        thereIsEvent = false;
+                                    }
+                                } else if (choice == 2) {
+                                    System.out.println("");
+                                }
+                            } else if (randomEvent == 2) {
+                                System.out.println("");
 
+                            } else if (randomEvent == 3) {
+
+                            } else if (randomEvent == 4) {
+
+                            } else if (randomEvent == 5) {
+
+                            }
                         }
                     }
                 }
