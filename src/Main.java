@@ -201,16 +201,20 @@ public class Main {
                                     System.out.println("You told your ex that the cats belong to you.");
                                     System.out.println("Your ex reluctantly let you take take the cats.");
                                     System.out.println("You expected more? Ha imagine");
-                                    System.out.println("Your energy decreased by 10.");
+                                    System.out.println("Your energy decreased by 10. Both cats' mood increased by 30.");
                                     player.decreasePlayerEnergy(10);
+                                    pleio.increaseMood(30);
+                                    koopa.increaseMood(30);
                                     thereIsEvent = false;
                                 } else if (choice == 2) {
                                     System.out.println("WOWWWW YOU PRIORITIZE YOUR EX OVER CATS? Whatever you do you.");
                                     System.out.println("You told your ex you missed him/her. You want to go back with him/her.");
                                     System.out.println("Some romantic stuff happened that I'm not going to specify.");
                                     System.out.println("You took back the cats and kissed him/her goodbye. Happy ending :)");
-                                    System.out.println("Your energy decreased by 20.");
+                                    System.out.println("Your energy decreased by 20. Both cats' mood increased by 30.");
                                     player.decreasePlayerEnergy(20);
+                                    pleio.increaseMood(30);
+                                    koopa.increaseMood(30);
                                     thereIsEvent = false;
                                 }
                             } else if (eventChoice.equals("n")) {
@@ -250,7 +254,23 @@ public class Main {
                                         thereIsEvent = false;
                                     }
                                 } else if (choice == 2) {
-                                    System.out.println("");
+                                    System.out.println("Some man walked up to you and asked if he can buy the cats off you.");
+                                    System.out.println("1: yes; 2: no");
+                                    System.out.print("Your choice? ");
+                                    choice = s.nextInt();
+                                    if (choice == 1) {
+                                        System.out.println("You sold the cats to the man for $50. Really bro?");
+                                        System.out.println("Oh you have a plan? You going to take the cats back and keep the money? Ok good luck");
+                                        System.out.println("So, you secretly followed the man home. How do you get inside?");
+                                        System.out.println("1: window; 2: backdoor");
+                                        System.out.print("Your choice? ");
+                                        choice = s.nextInt();
+                                        if (choice == 1) {
+                                            System.out.println();
+                                        } else if (choice == 2) {
+
+                                        }
+                                    }
                                 }
                             } else if (randomEvent == 2) {
                                 System.out.println("");
