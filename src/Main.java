@@ -64,7 +64,8 @@ public class Main {
                         koopa.decreaseMood(30);
                         if (pleio.getHunger() < 50 || pleio.getThirst() < 50) {
                             pleio.decreaseMood(10);
-                        } else if (koopa.getHunger() < 50 || koopa.getThirst() < 50) {
+                        }
+                        if (koopa.getHunger() < 50 || koopa.getThirst() < 50) {
                             koopa.decreaseMood(10);
                         }
                     }
@@ -92,6 +93,7 @@ public class Main {
                         time = 3;
                         choice = 6;
                     }
+
                     while (choice != 6 && !thereIsEvent) {
                         System.out.println("Your energy: " + player.getPlayerEnergy());
                         System.out.println("1: Feed cat; 2: Play with cats; 3: Put cat to sleep; 4: You sleep; 5: See cats' stats; 6: Continue");
@@ -183,7 +185,7 @@ public class Main {
                         System.out.println();
                     }
 
-                    while (thereIsEvent) {
+                    while (thereIsEvent && (pleio.getAliveStatus() && koopa.getAliveStatus())) {
                         if (pleio.getMood() < 50 || koopa.getMood() < 50) {
                             System.out.println("The cats are sad. They ran away from home.");
                             System.out.print("Find them? y/n: ");
@@ -254,26 +256,31 @@ public class Main {
                                         thereIsEvent = false;
                                     }
                                 } else if (choice == 2) {
-                                    System.out.println("Some man walked up to you and asked if he can buy the cats off you.");
-                                    System.out.println("1: yes; 2: no");
+                                    System.out.println("You left him alone. Pleio died. What did you expect? \uD83D\uDC80");
+                                    pleio.decreaseHealth(100);
+                                    thereIsEvent = false;
+                                } else if (choice == 3) {
+
+                                }
+
+                            } else if (randomEvent == 2) {
+                                System.out.println("Some man walked up to you and asked if he can buy the cats off you.");
+                                System.out.println("1: yes; 2: no");
+                                System.out.print("Your choice? ");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("You sold the cats to the man for $50. Really bro?");
+                                    System.out.println("Oh you have a plan? You going to take the cats back and keep the money? Ok good luck");
+                                    System.out.println("So, you secretly followed the man home. How do you get inside?");
+                                    System.out.println("1: window; 2: backdoor");
                                     System.out.print("Your choice? ");
                                     choice = s.nextInt();
                                     if (choice == 1) {
-                                        System.out.println("You sold the cats to the man for $50. Really bro?");
-                                        System.out.println("Oh you have a plan? You going to take the cats back and keep the money? Ok good luck");
-                                        System.out.println("So, you secretly followed the man home. How do you get inside?");
-                                        System.out.println("1: window; 2: backdoor");
-                                        System.out.print("Your choice? ");
-                                        choice = s.nextInt();
-                                        if (choice == 1) {
-                                            System.out.println();
-                                        } else if (choice == 2) {
+                                        System.out.println("You broke into the house through the window. You see the cats ");
+                                    } else if (choice == 2) {
 
-                                        }
                                     }
                                 }
-                            } else if (randomEvent == 2) {
-                                System.out.println("");
 
                             } else if (randomEvent == 3) {
 
@@ -299,7 +306,7 @@ public class Main {
             System.out.println("How could you do this to Mr. Das? He gives you a fat zero.");
             System.out.println("Now your parents use physical violence on you because you got the fat zero.");
             System.out.println("Everyone in heaven looks down at you for letting a cat die. Haiyyaaaaa");
-        } else if (!koopa.getIsSleeping()) {
+        } else if (!koopa.getAliveStatus()) {
             System.out.println("Koopa is dead. You failure haiyyaaaa.");
             System.out.println("How could you do this to Mr. Das? He gives you a fat zero.");
             System.out.println("Now your parents use physical violence on you because you got the fat zero.");

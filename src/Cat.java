@@ -123,7 +123,8 @@ public class Cat {
     }
 
     public void changeAliveStatus() {
-        alive = !(alive);
+
+        alive = false;
     }
 
     public void changeIsSleeping(boolean b) {
