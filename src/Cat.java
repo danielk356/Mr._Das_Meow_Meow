@@ -7,6 +7,7 @@ public class Cat {
     private boolean isSleeping;
     private String name;
 
+    //constructor method for the cats with all their instance variables
     public Cat(int health, int hunger, int thirst, int mood, boolean alive, String name, boolean isSleeping) {
         this.health = health;
         this.hunger = hunger;
@@ -17,6 +18,7 @@ public class Cat {
         this.isSleeping = isSleeping;
     }
 
+    //randomly returns cat noises
     public String catNoises() {
         String catNoise1 = "Mroww";
         String catNoise2 = "Meeeooowww";
@@ -38,6 +40,7 @@ public class Cat {
         return "";
     }
 
+    //getter methods for all the cat object's instance variables
     public int getHealth() {
         return health;
     }
@@ -66,6 +69,7 @@ public class Cat {
         return isSleeping;
     }
 
+    //decrease cat's health
     public void decreaseHealth(int x) {
         health -= x;
         if (health < 0) {
@@ -73,6 +77,7 @@ public class Cat {
         }
     }
 
+    //decreases cat's hunger
     public void decreaseHunger(int x) {
         hunger -= x;
         if (hunger < 0) {
@@ -80,6 +85,7 @@ public class Cat {
         }
     }
 
+    //decreases cat's thirst
     public void decreaseThirst(int x) {
         thirst -= x;
         if (thirst < 0) {
@@ -87,6 +93,7 @@ public class Cat {
         }
     }
 
+    //decreases cat's mood
     public void decreaseMood(int x) {
         mood -= x;
         if (mood < 0) {
@@ -94,6 +101,7 @@ public class Cat {
         }
     }
 
+    //increases cat's health
     public void increaseHealth(int x) {
         health += x;
         if (health > 100) {
@@ -101,6 +109,7 @@ public class Cat {
         }
     }
 
+    //increases cat's hunger
     public void increaseHunger(int x) {
         hunger += x;
         if (hunger > 100) {
@@ -108,6 +117,7 @@ public class Cat {
         }
     }
 
+    //increases cat's thirst
     public void increaseThirst(int x) {
         thirst += x;
         if (thirst > 100) {
@@ -115,6 +125,7 @@ public class Cat {
         }
     }
 
+    //increases cat's mood
     public void increaseMood(int x) {
         mood += x;
         if (mood > 100) {
@@ -122,15 +133,18 @@ public class Cat {
         }
     }
 
+    //changes cat's alive status to the opposite
     public void changeAliveStatus() {
 
-        alive = false;
+        alive = !(alive);
     }
 
+    //changes cat's sleeping status to boolean b
     public void changeIsSleeping(boolean b) {
         isSleeping = b;
     }
 
+    //returns the string, which contains all the stats of a cat
     public String toString() {
         String str = name + "\n";
         str += "Health: " + health + "\n";

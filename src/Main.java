@@ -2,27 +2,32 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        //Initialize the objects
         Cat pleio = new Cat(100, 100, 100, 100, true, "Pleio", false);
         Cat koopa = new Cat(100, 100, 100, 100, true, "Koopa", false);
         Player player = new Player(100);
-        Events events = new Events(pleio, koopa, player, false);
+        Actions actions = new Actions(pleio, koopa, player, false);
 
+        //The intro message
         String intro = "Mr. Das entrusted his two cats, Pleio and Koopa, to you. You must take care of them.\n";
         intro += "You must feed them, put them to sleep for the night, and save them from dangerous situations.\n";
         intro += "Why are you doing this?\nIt cuz you have a bad grade in APCSA and you need extra credit to pass haiyaaa.\n";
         intro += "If you don't take care of the cats well, Mr. Das will give you a fat zero, but if you manage to do your job well,you get 100.\n";
         intro += "Have fun! :D (go suffer u failure)";
 
+        //The tutorial message
         String tutorial = "Each cat have a health bar, hunger bar, thirst bar, and mood bar. If hunger and/or thirst is low, mood goes down.\n";
         tutorial += "If mood is low, cats will perform some special events. If hunger or thirst is 0, the cat loses health daily.\n";
         tutorial += "You have an energy bar (stat, not food). Each action you take uses some energy. If you don't have enough energy for an action, you can't do it.\n";
         tutorial += "You have to take care of the cats for 7 days. If even a single cat dies, you get a fat 0 from Mr. Das.";
 
+        //set up the loop
         Scanner s = new Scanner(System.in);
         int day = 0;
         boolean thereIsEvent = false;
-        while ((pleio.getAliveStatus() && koopa.getAliveStatus()) && day <= 7) {
+        while ((pleio.getAliveStatus() && koopa.getAliveStatus()) && day <= 7) { //the while loop lasts 8 iterations
             System.out.println("Day " + day);
+            //day 0 is an overview of the game
             if (day == 0) {
                 System.out.println("Intro");
                 System.out.println(intro);
@@ -31,12 +36,14 @@ public class Main {
                 System.out.println(tutorial);
                 System.out.print("Enter any character to continue: ");
                 String enter = s.next();
+
+                //the game starts at day 1
             } else {
                 System.out.println("Awake now? Good cuz the cats are also awake. Go do your job u failure haiyaaa");
                 System.out.println();
                 pleio.changeIsSleeping(false);
                 koopa.changeIsSleeping(false);
-                for (int time = 1; time <= 3; time++) {
+                for (int time = 1; time <= 3; time++) { //there is 3 time periods each day: morning, afternoon, evening
                     if (time == 1) {
                         System.out.println("Morning");
                     } else if (time == 2) {
@@ -48,6 +55,7 @@ public class Main {
                     System.out.println("Pleio: " + pleio.catNoises());
                     System.out.println("Koopa: " + koopa.catNoises());
 
+                    // each time period have a %50 of triggering a random event.
                     int eventChance = (int) (Math.random() * 2) + 1;
                     if (eventChance == 1 || (pleio.getMood() < 50 || koopa.getMood() < 50)) {
                         thereIsEvent = true;
@@ -55,6 +63,7 @@ public class Main {
                         thereIsEvent = false;
                     }
 
+                    //if no events were triggered for the time period, the cats' stats decrease
                     if (!thereIsEvent) {
                         pleio.decreaseHunger(20);
                         pleio.decreaseThirst(20);
@@ -70,6 +79,7 @@ public class Main {
                         }
                     }
 
+                    //if the cats have 0 hunger or 0 thirst, they lose health each time period.
                     if (pleio.getHunger() == 0 || pleio.getThirst() == 0) {
                         pleio.decreaseHealth(20);
                     }
@@ -79,6 +89,7 @@ public class Main {
 
                     int choice = 0;
 
+                    //when either one of the cats' health reach zero, the loop immediately ends.
                     if (pleio.getHealth() == 0 && koopa.getHealth() == 0) {
                         pleio.changeAliveStatus();
                         koopa.changeAliveStatus();
@@ -94,12 +105,14 @@ public class Main {
                         choice = 6;
                     }
 
+                    //the while loop when there is no events
                     while (choice != 6 && !thereIsEvent) {
                         System.out.println("Your energy: " + player.getPlayerEnergy());
                         System.out.println("1: Feed cat; 2: Play with cats; 3: Put cat to sleep; 4: You sleep; 5: See cats' stats; 6: Continue");
                         System.out.print("Your choice? ");
                         choice = s.nextInt();
 
+                        //different choices, different actions will take place.
                         if (choice == 1) {
                             if (player.getPlayerEnergy() >= 10) {
                                 System.out.print("Pleio or Koopa? ");
@@ -110,7 +123,7 @@ public class Main {
                                     } else {
                                         System.out.println("You fed Pleio. (You no like Koopa? :c)");
                                         System.out.println("Pleio's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
-                                        events.feedCat(pleio);
+                                        actions.feedCat(pleio);
                                     }
                                 } else if (feedChoice.equals("Koopa") || feedChoice.equals("koopa")) {
                                     if (koopa.getIsSleeping()) {
@@ -118,7 +131,7 @@ public class Main {
                                     } else {
                                         System.out.println("You fed Koopa. (You no like Pleio? :c)");
                                         System.out.println("Koopa's hunger, thirst, and mood increased by 20. Your energy decreased by 10.");
-                                        events.feedCat(koopa);
+                                        actions.feedCat(koopa);
                                     }
                                 }
                             } else {
@@ -133,15 +146,15 @@ public class Main {
                                 } else if (pleio.getIsSleeping()) {
                                     System.out.println("Pleio is sleeping. You can play with koopa though :D");
                                     System.out.println("You petted and played with Koopa. Koopa's mood increased by 30. Your energy decreased by 30.");
-                                    events.playWithCats();
+                                    actions.playWithCats();
                                 } else if (koopa.getIsSleeping()) {
                                     System.out.println("Koopa is sleeping. You can play with Pleio though :D");
                                     System.out.println("You petted and played with Pleio. Pleio's mood increased by 30. Your energy decreased by 30.");
-                                    events.playWithCats();
+                                    actions.playWithCats();
                                 } else if (!koopa.getIsSleeping() && !pleio.getIsSleeping()) {
                                     System.out.println("Yay both cats are awake :D");
                                     System.out.println("You are happy and played with them like the cat lover you are. Both cats' mood increased by 30. Your energy decreased by 30.");
-                                    events.playWithCats();
+                                    actions.playWithCats();
                                 }
                             } else {
                                 System.out.println("You don't have enough energy haiyaa");
@@ -151,8 +164,8 @@ public class Main {
                         } else if (choice == 3) {
                             if (time == 3) {
                                 if (player.getPlayerEnergy() >= 30) {
-                                    events.putCatsToSleep();
-                                    if (events.getSuccess()) {
+                                    actions.putCatsToSleep();
+                                    if (actions.getSuccess()) {
                                         System.out.println("The cats are sleeping. Your energy decreased by 20.");
                                     } else {
                                         System.out.println("The cats rebelled. Haiyaa you have skill issue. Your energy decreased by 30");
@@ -168,7 +181,7 @@ public class Main {
                         } else if (choice == 4) {
                             if (time == 3) {
                                 System.out.println("You went to sleep. You will gain 50 energy.");
-                                events.playerSleep();
+                                actions.playerSleep();
                                 choice = 6;
                             } else {
                                 System.out.println("You can only sleep at night time. Haiyaaaa");
@@ -185,8 +198,9 @@ public class Main {
                         System.out.println();
                     }
 
+                    //the while loop when there is events
                     while (thereIsEvent && (pleio.getAliveStatus() && koopa.getAliveStatus())) {
-                        if (pleio.getMood() < 50 || koopa.getMood() < 50) {
+                        if (pleio.getMood() < 50 || koopa.getMood() < 50) { //the special event when cats' mood are under 50
                             System.out.println("The cats are sad. They ran away from home.");
                             System.out.print("Find them? y/n: ");
                             String eventChoice = s.next();
@@ -228,7 +242,9 @@ public class Main {
                                 thereIsEvent = false;
                             }
                         } else {
+                            //the random events that can occur throughout the loop. There are 5 randomized events
                             int randomEvent = (int) (Math.random() * 5) + 1;
+
                             if (randomEvent == 1) {
                                 System.out.println("NOOOO PLEIO IS LICKING GASOLINE!!!");
                                 System.out.println("1: You grab Pleio and rush him to the vet; 2: You leave him alone; 3: You take Pleio home and gave him home meds");
@@ -247,12 +263,14 @@ public class Main {
                                         System.out.println("Your energy decreased by 10. Pleio's mood increased by 20.");
                                         player.decreasePlayerEnergy(10);
                                         pleio.increaseMood(20);
+                                        pleio.increaseHealth(20);
                                         thereIsEvent = false;
                                     } else if (choice == 2) {
                                         System.out.println("You went home with Pleio. No drama :)");
-                                        System.out.println("Your energy decreased by 10. Pleio's mood increased by 20.");
+                                        System.out.println("Your energy decreased by 10. Pleio's mood and health increased by 20.");
                                         player.decreasePlayerEnergy(10);
                                         pleio.increaseMood(20);
+                                        pleio.increaseHealth(20);
                                         thereIsEvent = false;
                                     }
                                 } else if (choice == 2) {
@@ -260,7 +278,11 @@ public class Main {
                                     pleio.decreaseHealth(100);
                                     thereIsEvent = false;
                                 } else if (choice == 3) {
-
+                                    System.out.println("Completely confident in your abilities, you gave Pleio home meds.");
+                                    System.out.println("You accidentally gave Pleio too much pills, so Pleio died from an overdose.");
+                                    System.out.println("Baka \uD83D\uDC80");
+                                    pleio.decreaseHealth(100);
+                                    thereIsEvent = false;
                                 }
 
                             } else if (randomEvent == 2) {
@@ -277,6 +299,7 @@ public class Main {
                                     choice = s.nextInt();
                                     if (choice == 1) {
                                         System.out.println("You broke into the house through the window. You see the cats ");
+
                                     } else if (choice == 2) {
 
                                     }
@@ -297,6 +320,7 @@ public class Main {
             day ++;
         }
 
+        //prints the message when the cats' are dead or the player kept them alive for 7 days
         if (!pleio.getAliveStatus() && !koopa.getAliveStatus()) {
             System.out.println("BOTH CATS DIED?!! HOW ARE YOU THIS BAD???????");
             System.out.println("MR. DAS IS VERY ANGRY!!! HE WILL HUNT YOU DOWN FOR ETERNITY!");

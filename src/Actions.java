@@ -1,10 +1,10 @@
-public class Events {
+public class Actions {
     private Cat pleio;
     private Cat koopa;
     private Player player;
     private boolean success;
 
-    public Events(Cat pleio, Cat koopa, Player player, boolean success) {
+    public Actions(Cat pleio, Cat koopa, Player player, boolean success) {
         this.pleio = pleio;
         this.koopa = koopa;
         this.player = player;
