@@ -34,6 +34,9 @@ public class Actions {
         return success;
     }
 
+    /**
+     * The feedCat method increases the mood, hunger, and thirst of cat by 20. Decrease player's energy by 10.
+     */
     public void feedCat(Cat cat) {
         player.decreasePlayerEnergy(10);
         cat.increaseMood(20);
