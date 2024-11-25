@@ -202,16 +202,18 @@ public class Main {
                     while (thereIsEvent && (pleio.getAliveStatus() && koopa.getAliveStatus())) {
                         if (pleio.getMood() < 50 || koopa.getMood() < 50) { //the special event when cats' mood are under 50
                             System.out.println("The cats are sad. They ran away from home.");
-                            System.out.print("Find them? y/n: ");
-                            String eventChoice = s.next();
-                            if (eventChoice.equals("y")) {
+                            System.out.print("Find them?");
+                            System.out.println("1: Yes; 2: No");
+                            System.out.print("Your choice? ");
+                            choice = s.nextInt();
+                            if (choice == 1) {
                                 System.out.println("You went outside (about time u stinky). You searched for the cats and found them in your ex's house.");
                                 System.out.println("Wait.. you have an ex??? Nvm");
                                 System.out.println("Anyway...you see the cats getting pampered by your ex.");
                                 System.out.println("Fueled by jealousy, you angrily barged in your ex's house.");
                                 System.out.println("Your ex looks at you.");
                                 System.out.println("1: Take the cats; 2: Make up with your ex");
-                                System.out.print("Your choice?");
+                                System.out.print("Your choice? ");
                                 choice = s.nextInt();
                                 if (choice == 1) {
                                     System.out.println("You told your ex that the cats belong to you.");
@@ -233,7 +235,7 @@ public class Main {
                                     koopa.increaseMood(30);
                                     thereIsEvent = false;
                                 }
-                            } else if (eventChoice.equals("n")) {
+                            } else if (choice == 2) {
                                 System.out.println("Wow what is wrong with you?");
                                 System.out.println("So you stayed home, absolutely not caring about the cats. You're a monster.");
                                 System.out.println("The cats died because you didn't care for them.");
@@ -298,21 +300,119 @@ public class Main {
                                     System.out.print("Your choice? ");
                                     choice = s.nextInt();
                                     if (choice == 1) {
-                                        System.out.println("You broke into the house through the window. You see the cats ");
+                                        System.out.println("You broke into the house through the window. You see the cats get put into cages.");
+                                        System.out.println("1: Pray; 2: Fight the man");
+                                        System.out.print("Your choice? ");
+                                        choice = s.nextInt();
+                                        if (choice == 1) {
+                                            System.out.println("You prayed to the cat god for help. The cat god looked at you with disappoint.");
+                                            System.out.println("The cat god's voice boomed, \"fine I will help, but don't let this happen ever again.\"");
+                                            System.out.println("The cat god snapped his fingers and teleported you and the cats back home.");
+                                            System.out.println("Your energy decreased by 10. All of the cats' stats increased by 50 thanks to the power of cat god.");
+                                            player.decreasePlayerEnergy(10);
+                                            pleio.increaseMood(50);
+                                            pleio.increaseHealth(50);
+                                            pleio.increaseHunger(50);
+                                            pleio.increaseThirst(50);
+                                            koopa.increaseMood(50);
+                                            koopa.increaseHealth(50);
+                                            koopa.increaseHunger(50);
+                                            koopa.increaseThirst(50);
+                                            thereIsEvent = false;
+                                        } else if (choice == 2) {
+                                            System.out.println("You tried to fight the man, but you lost.");
+                                            System.out.println("Haiyaaa you ran home, and Mr. Das is furious.");
+                                            pleio.decreaseHealth(100);
+                                            koopa.decreaseHealth(100);
+                                            thereIsEvent = false;
+                                        }
 
                                     } else if (choice == 2) {
-
+                                        System.out.println("You entered the house through the backdoor. You see a bat and knocked out the man unconscious with it.");
+                                        System.out.println("You took the cats and ran home with a crime on your records. Haiyaaa");
+                                        System.out.println("Your energy decreased by 10.");
+                                        player.decreasePlayerEnergy(10);
+                                        thereIsEvent = false;
                                     }
+                                } else if (choice == 2) {
+                                    System.out.println("Good choice. You did not sell the cats. No drama :)");
+                                    thereIsEvent = false;
                                 }
 
                             } else if (randomEvent == 3) {
+                                System.out.println("The cat god appeared to you.");
+                                System.out.println("He said, \"I can grant you one wish. What is it?\"");
+                                System.out.println("1: Restore energy; 2: Restore cats' health; 3: Restore cats' hunger and thirst");
+                                System.out.print("Your choice? ");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("The cat god snapped his fingers and gave you 50 energy.");
+                                    player.increasePlayerEnergy(50);
+                                    thereIsEvent = false;
+                                } else if (choice == 2) {
+                                    System.out.println("The cat god snapped his fingers and gave the cats 30 health.");
+                                    pleio.increaseHealth(30);
+                                    koopa.increaseHealth(30);
+                                    thereIsEvent = false;
+                                } else if (choice == 3) {
+                                    System.out.println("The cat god snapped his fingers and gave the cats 30 hunger and 30 thirst.");
+                                    pleio.increaseHunger(30);
+                                    pleio.increaseThirst(30);
+                                    koopa.increaseHunger(30);
+                                    koopa.increaseThirst(30);
+                                    thereIsEvent = false;
+                                }
 
                             } else if (randomEvent == 4) {
+                                System.out.println("A kid wants to play with the cats. Let them?");
+                                System.out.println("1: Yes; 2: No");
+                                System.out.print("Your choice? ");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("You let the kids play with the cats. The cats purred and had fun. So nice of you :)");
+                                    System.out.println("The cats' mood increased by 20. Their hunger and thirst decreased by 10.");
+                                    pleio.increaseMood(20);
+                                    pleio.decreaseHunger(10);
+                                    pleio.decreaseThirst(10);
+                                    koopa.increaseMood(20);
+                                    koopa.decreaseHunger(10);
+                                    koopa.decreaseThirst(10);
+                                    thereIsEvent = false;
+                                } else if (choice == 2) {
+                                    System.out.println("You are so mean haiyaaa. The kid cried.");
+                                    System.out.println("Your reputation decreased by 1000 (this is a joke. Rep doesn't exist in this game).");
+                                    thereIsEvent = false;
+                                }
 
                             } else if (randomEvent == 5) {
-
+                                System.out.println("The cats are running around the house breaking stuff! Stop them pls");
+                                System.out.println("1: Use red dot toy; 2: Stop them using physical force; 3: Do nothing");
+                                System.out.print("Your choice? ");
+                                choice = s.nextInt();
+                                if (choice == 1) {
+                                    System.out.println("As a cat genius, you used the red dot toy to distract the cats.");
+                                    System.out.println("The cats were drawn to the red dot and started chasing it. Mission accomplished");
+                                    System.out.println("Your energy decreased by 10. The cats' mood increased by 10.");
+                                    player.decreasePlayerEnergy(10);
+                                    pleio.increaseMood(10);
+                                    koopa.increaseMood(10);
+                                    thereIsEvent = false;
+                                } else if (choice == 2) {
+                                    System.out.println("You tried to stop them with physical force.");
+                                    System.out.println("The cats scratched you and ran away to a corner of the room.");
+                                    System.out.println("Your energy decreased by 30.");
+                                    player.decreasePlayerEnergy(30);
+                                    thereIsEvent = false;
+                                } else if (choice == 3) {
+                                    System.out.println("You did nothing. The cats caused mayhem and chaos in the house.");
+                                    System.out.println("After a while, the whole house is a mess. You were forced to clean everything up haiyaaa");
+                                    System.out.println("Your energy decreased by 40.");
+                                    player.decreasePlayerEnergy(40);
+                                    thereIsEvent = false;
+                                }
                             }
                         }
+                        System.out.println();
                     }
                 }
             }
